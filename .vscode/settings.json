@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "TiendaJava/lib/h2-2.3.232.jar"
+    ]
+}
