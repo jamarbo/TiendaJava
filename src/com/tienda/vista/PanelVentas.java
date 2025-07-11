@@ -300,7 +300,8 @@ public class PanelVentas extends JPanel {
             cancelarVenta(); // Limpia el formulario para una nueva venta
             // Actualizar estadísticas si es necesario
             Window window = SwingUtilities.getWindowAncestor(this);
-            if (window instanceof VentanaPrincipal vp) {
+            if (window instanceof VentanaPrincipal) {
+                VentanaPrincipal vp = (VentanaPrincipal) window;
                 vp.actualizarEstadisticas();
             }
         } else {

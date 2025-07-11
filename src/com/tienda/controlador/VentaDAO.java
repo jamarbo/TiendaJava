@@ -10,6 +10,24 @@ import java.util.List;
 
 public class VentaDAO {
 
+    public VentaDAO() {
+        // ¡DEBES ELIMINAR ESTE BLOQUE DE CÓDIGO DE AQUÍ!
+        /*
+        String sql = "CREATE TABLE IF NOT EXISTS ventas (" +
+                     "id_venta INT AUTO_INCREMENT PRIMARY KEY," +
+                     "id_cliente INT," +
+                     "fecha TIMESTAMP," +
+                     "total_venta DOUBLE," +
+                     "FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente))";
+        try (Connection conn = ConexionDB.conectar();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.err.println("Error al crear tabla ventas: " + e.getMessage());
+        }
+        */
+    }
+
     public boolean registrarVenta(Venta venta) {
         Connection conn = null;
         String sqlVenta = "INSERT INTO ventas (id_cliente, fecha, total_venta) VALUES (?, ?, ?)";
@@ -111,16 +129,15 @@ public class VentaDAO {
 
     public List<VentaItem> listarVentaItemsParaEstadisticas() {
         List<VentaItem> items = new ArrayList<>();
-        String sql = """
-            SELECT 
-                vi.id_venta_item, vi.id_venta, vi.id_producto, vi.cantidad_vendida, vi.precio_unitario, vi.subtotal,
-                v.fecha,
-                p.nombre as nombre_producto
-            FROM venta_items vi
-            JOIN ventas v ON vi.id_venta = v.id_venta
-            JOIN productos p ON vi.id_producto = p.id_producto
-            ORDER BY v.fecha DESC
-        """;
+        String sql = 
+            "SELECT " +
+            "vi.id_venta_item, vi.id_venta, vi.id_producto, vi.cantidad_vendida, vi.precio_unitario, vi.subtotal, " +
+            "v.fecha, " +
+            "p.nombre as nombre_producto " +
+            "FROM venta_items vi " +
+            "JOIN ventas v ON vi.id_venta = v.id_venta " +
+            "JOIN productos p ON vi.id_producto = p.id_producto " +
+            "ORDER BY v.fecha DESC";
 
         try (Connection conn = ConexionDB.conectar();
              Statement stmt = conn.createStatement();
